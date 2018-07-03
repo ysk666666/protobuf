@@ -236,7 +236,8 @@ NSString *GPBCodedInputStreamReadRetainedString(
       NSLog(@"UTF-8 failure, is some field type 'string' when it should be "
             @"'bytes'?");
 #endif
-      RaiseException(GPBCodedInputStreamErrorInvalidUTF8, nil);
+//      RaiseException(GPBCodedInputStreamErrorInvalidUTF8, nil);
+        result = @"";
     }
   }
   return result;
