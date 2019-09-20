@@ -83,7 +83,12 @@ GPB_INLINE int32_t GPBConvertFloatToInt32(float v) {
 }
 
 GPB_INLINE double GPBConvertInt64ToDouble(int64_t v) {
+// https://github.com/protocolbuffers/protobuf/issues/6653    https://github.com/firebase/firebase-ios-sdk/issues/3851
+#if __LP64__
   union { double f; int64_t i; } u;
+#else
+  volatile union { double f; int64_t i; } u;
+#endif
   u.i = v;
   return u.f;
 }
