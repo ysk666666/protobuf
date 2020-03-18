@@ -94,6 +94,7 @@ class Message
         $this->desc = $pool->getDescriptorByClassName(get_class($this));
         if (is_null($this->desc)) {
             user_error(get_class($this) . " is not found in descriptor pool.");
+            return;
         }
         foreach ($this->desc->getField() as $field) {
             $setter = $field->getSetter();
@@ -933,6 +934,10 @@ class Message
                    throw new GPBDecodeException(
                        "Invalid data type for int32 field");
                 }
+                if (is_string($value) && trim($value) !== $value) {
+                   throw new GPBDecodeException(
+                       "Invalid data type for int32 field");
+                }
                 if (bccomp($value, "2147483647") > 0) {
                    throw new GPBDecodeException(
                        "Int32 too large");
@@ -951,6 +956,10 @@ class Message
                    throw new GPBDecodeException(
                        "Invalid data type for uint32 field");
                 }
+                if (is_string($value) && trim($value) !== $value) {
+                   throw new GPBDecodeException(
+                       "Invalid data type for int32 field");
+                }
                 if (bccomp($value, 4294967295) > 0) {
                     throw new GPBDecodeException(
                         "Uint32 too large");
@@ -963,6 +972,10 @@ class Message
                     return $this->defaultValue($field);
                 }
                 if (!is_numeric($value)) {
+                   throw new GPBDecodeException(
+                       "Invalid data type for int64 field");
+                }
+                if (is_string($value) && trim($value) !== $value) {
                    throw new GPBDecodeException(
                        "Invalid data type for int64 field");
                 }
@@ -981,6 +994,10 @@ class Message
                     return $this->defaultValue($field);
                 }
                 if (!is_numeric($value)) {
+                   throw new GPBDecodeException(
+                       "Invalid data type for int64 field");
+                }
+                if (is_string($value) && trim($value) !== $value) {
                    throw new GPBDecodeException(
                        "Invalid data type for int64 field");
                 }
